@@ -8,7 +8,7 @@ Check your knowledge in `awk&sed`
 
 #### Example
 
-- From `samples/1.txt` print *second* column
+- From `samples/1.txt` print *second names*
 
 Expected result
 
@@ -19,7 +19,7 @@ Expected result
   Walsh
 ```
 
-<details> 
+<details>
   <summary>Answer</summary>
 
     awk '{ print $2 }' samples/1.txt
@@ -32,7 +32,7 @@ Expected result
 ```bash
   git clone https://github.com/serkin/awkquiz.git
   cd awkquiz
-  
+
   awk '{ print $2 }' samples/1.txt
 ```
 
