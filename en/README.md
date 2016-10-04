@@ -2,10 +2,11 @@
 
 Small quizzes on languages we like to keep us in shape.
 
-Select your language
 
-
-- [English](en/README.md)
+- PHP
+  - [Patterns](php/patterns.md)
+- Bash
+  - [awk](bash/awk.md)
 
 
 #### Example
@@ -27,3 +28,17 @@ Expected result
     awk '{ print $2 }' bash/samples/1.txt
 
 </details>
+
+
+#### How to use tutorial
+
+```bash
+  git clone https://github.com/serkin/quiz.git
+  cd quiz
+
+  awk '{ print $2 }' bash/samples/1.txt
+```
+
+#### Contribution
+
+Send `pull request` to `master` branch.
