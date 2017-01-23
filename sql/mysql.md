@@ -57,7 +57,37 @@
 <hr>
 
 
+- Show orders with `Camcorder` but without `Ironing Board`
 
+<details>
+  <summary>Answer</summary>
+
+```sql
+  SELECT orders.id_order 
+  FROM   customers
+     LEFT JOIN orders
+            ON customers.id_customer = orders.id_customer
+     LEFT JOIN order_products
+            ON order_products.id_order = orders.id_order
+     LEFT JOIN products
+            ON products.id_product = order_products.id_product
+  WHERE  products.name = 'Camcorder'
+     AND orders.id_order NOT IN (SELECT orders.id_order
+                               FROM   orders
+                                      LEFT JOIN order_products
+                                             ON order_products.id_order =
+                                                orders.id_order
+                                      LEFT JOIN products
+                                             ON products.id_product =
+                                                order_products.id_product
+                               WHERE  products.name = 'Ironing Board')
+  GROUP  BY orders.id_order
+```
+
+
+</details>
+
+<hr>
 
 
 
@@ -73,6 +103,7 @@ outer join
 Показать страну клиенты из которой совершают покупки в разделе Books
 Показать товары которые чаще всего покупают клиенты со средним чеком больше $200
 Показать клиентов которые заказали eye set но не заказавших Book
+Show orders with `Camcorder` but without `Ironing Board`
 Показать клиентов с одинаковыми именами не купивших eye set
 Показать заказы содержащие eye set но не содержащие Book
 Показать страны, в которыех жители тратят столько же на Books  сколько и на Beauty
