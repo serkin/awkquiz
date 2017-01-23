@@ -63,7 +63,7 @@
   <summary>Answer</summary>
 
 ```sql
-  SELECT orders.id_order 
+  SELECT orders.id_order
   FROM   customers
      LEFT JOIN orders
             ON customers.id_customer = orders.id_customer
@@ -90,6 +90,55 @@
 <hr>
 
 
+
+
+- Show customers who spent more than $200 on `Beauty` but who spent less than $100 on `Books`
+
+<details>
+  <summary>Answer</summary>
+
+```sql
+  SELECT t1.id_customer,
+       t1.name
+  FROM   (SELECT customers.id_customer,
+               customers.name,
+               Sum(products.price) AS total
+        FROM   customers
+               LEFT JOIN orders
+                      ON customers.id_customer = orders.id_customer
+               LEFT JOIN order_products
+                      ON order_products.id_order = orders.id_order
+               LEFT JOIN products
+                      ON products.id_product = order_products.id_product
+               LEFT JOIN categories
+                      ON products.id_category = categories.id_category
+        WHERE  categories.name = 'Books'
+        GROUP  BY orders.id_order
+        HAVING total > 4) AS t1
+       INNER JOIN (SELECT customers.id_customer,
+                          customers.name,
+                          Sum(products.price) AS total
+                 FROM   customers
+                        LEFT JOIN orders
+                               ON customers.id_customer = orders.id_customer
+                        LEFT JOIN order_products
+                               ON order_products.id_order = orders.id_order
+                        LEFT JOIN products
+                               ON products.id_product =
+                                  order_products.id_product
+                        LEFT JOIN categories
+                               ON products.id_category =
+                                  categories.id_category
+                 WHERE  categories.name = 'Beauty'
+                 GROUP  BY orders.id_order
+                 HAVING total < 400) AS t2
+  ON t1.id_customer = t2.id_customer 
+```
+
+
+</details>
+
+<hr>
 
 
 http://superuser.com/questions/288621/create-mysql-database-with-one-line-in-bash
